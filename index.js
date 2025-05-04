@@ -25,3 +25,13 @@ app.post('/submit', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Proxy running on ${PORT}`));
+
+app.get('/fetch', async (req, res) => {
+  try {
+    const response = await fetch(GAS_URL);  // If GAS_URL accepts GET
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Proxy GET failed', details: err.message });
+  }
+});
